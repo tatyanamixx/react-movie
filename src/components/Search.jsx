@@ -4,11 +4,12 @@ class Search extends React.Component {
     state = {
         search: '',
         type: 'all',
+        page: 1, 
     };
 
     handleKey = (event) => {
         if (event.key === 'Enter') {
-            this.props.searchMovies(this.state.search, this.state.type);
+            this.props.searchMovies(this.state.search, this.state.type, this.state.page);
         }
     };
 
@@ -82,6 +83,13 @@ class Search extends React.Component {
                         />
                         <span>Series Only</span>
                     </label>
+                </div>
+                <div className="row">
+                    <input 
+                        className ='validate'
+                        type="text"
+                        value={this.state.page}
+                    />
                 </div>
             </div>
         );

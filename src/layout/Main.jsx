@@ -3,42 +3,50 @@ import Movies from "../components/Movies"
 import Preloader from "../components/Preloader";
 import Search from "../components/Search";
 
+const API_KEY = process.env.REACT_APP_API_KEY
 
 class Main extends React.Component {
     state = {
         movies: [],
+        loading: true,
+        totalResults: 0,
+        page: 1,
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=6e049cc1&s=matrix')
+        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=matrix&page=1`)
             .then (response => response.json())
-            .then ((data) => this.setState({movies: data.Search}))
+            .then ((data) => this.setState({movies: data.Search, loading: false, totalResults: data.totalResults}))
 
     }
 
-    searchMoveis (str, type = 'all') {
-
-        if (this.props.str.length  === 0) return null;
-        
-        fetch (
-            `http://www.omdbapi.com/?apikey=6e049cc1&s=${str}
-            ${type !== 'all' ? `&type=${type}`: ''
+    searchMovies = (str, type = 'all', page = 1) => {
+        this.setState({ loading: true });
+        fetch(
+            `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${
+                type !== 'all' ? `&type=${type}&page=${page}` : ''
             }`
         )
-        .then (response => response.json())
-        .then ((data) => this.setState({movies: data.Search}))           
-    }
+            .then((response) => response.json())
+            .then((data) =>
+                this.setState({ movies: data.Search, loading: false, totalResults: data.totalResults})
+            )
+            .catch((err) => {
+                console.error(err);
+                this.setState({ loading: false });
+            });
+    };
 
     render () {
-        const {movies} = this.state;
+        const {movies, loading} = this.state;
 
         return <main className = "container content">
-            <Search searchMoveis={this.searchMoveis}/>
-            {   movies.length ? (
-                    <Movies movies={this.state.movies}/>
-                ) : 
-                <Preloader/>
-             } 
+            <Search searchMovies={this.searchMovies} />
+            { loading ? (
+                <Preloader />
+            ) : (
+                <Movies movies={this.state.movies} />
+            ) } 
         </main>
     }
 }
