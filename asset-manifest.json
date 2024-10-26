@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/github.io/react-movie/static/css/main.9bf9ab20.css",
-    "main.js": "/github.io/react-movie/static/js/main.2c18a8b6.js",
-    "index.html": "/github.io/react-movie/index.html",
-    "main.9bf9ab20.css.map": "/github.io/react-movie/static/css/main.9bf9ab20.css.map",
-    "main.2c18a8b6.js.map": "/github.io/react-movie/static/js/main.2c18a8b6.js.map"
+    "main.css": "/react-movie/static/css/main.9bf9ab20.css",
+    "main.js": "/react-movie/static/js/main.2c18a8b6.js",
+    "index.html": "/react-movie/index.html",
+    "main.9bf9ab20.css.map": "/react-movie/static/css/main.9bf9ab20.css.map",
+    "main.2c18a8b6.js.map": "/react-movie/static/js/main.2c18a8b6.js.map"
   },
   "entrypoints": [
     "static/css/main.9bf9ab20.css",
